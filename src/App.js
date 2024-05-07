@@ -1,24 +1,38 @@
-import logo from './logo.svg';
 import './App.css';
-
+import { Route, BrowserRouter, Routes } from 'react-router-dom'; 
+import Login from './Controller/Login';
+import Base from './Controller/Base';
+import Register from './Controller/Register';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import AddPost from './Controller/AddPost';
+import AllPost from './Controller/AllPost';
+import UserRouter from './Controller/UserRouter';
+import AdminRouter from './Controller/AdminRouter';
+import MyPost from './Controller/MyPost';
+  
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <ToastContainer />
+    <BrowserRouter>
+      <Routes>
+      <Route path='/' element={<Login/>}/>
+
+    <Route path='/register' element={<Register/>}/>
+  
+     <Route path='/user' element={<UserRouter/>}> {/* private router  */}
+    <Route path='post/:userId' element={<AddPost/>}/>
+    <Route path='allpost' element={<AllPost />}/>
+    <Route path='mypost' element={<MyPost/>}/>
+   </Route>    
+      <Route path='/admin' element={<AdminRouter/>}>
+      <Route path='post/:userId' element={<AddPost />}/>
+    <Route path='allpost' element={<AllPost/>}/>
+         </Route>
+      </Routes>
+    </BrowserRouter>
+    </>
   );
 }
 
